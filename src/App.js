@@ -185,9 +185,12 @@ function AppContent() {
       url = fileOrUrl;
       fileName = "camera_image"; // Generic name for camera image
     } else {
+      // If fileOrUrl is null, it means the image is being cleared
       setImage(null);
       setImageUrl("");
-      setPose(null);
+      setPose(null); // Clear the pose
+      setPosesMatch(null); // Reset pose match status
+      setPoseStatus(''); // Reset pose status message
       return;
     }
     
@@ -342,6 +345,8 @@ function AppContent() {
     setProgress(0);
     setProgressText('');
     setLoading(false);
+    setPosesMatch(null); // Reset posesMatch
+    setPoseStatus(''); // Reset poseStatus
   };
 
   // Simplified ImageUpload for Full Body only
@@ -447,6 +452,11 @@ function AppContent() {
 
   const handleSelectClothingFromGallery = (imageUrl) => {
     setClothingImageUrl(imageUrl);
+    if (!imageUrl) { // If imageUrl is null, it means the clothing image is being cleared
+      setClothingPose(null); // Clear the clothing pose
+      setPosesMatch(null); // Reset pose match status
+      setPoseStatus(''); // Reset pose status message
+    }
   };
 
   return (
@@ -485,7 +495,7 @@ function AppContent() {
               </div>
 
 
-              {poseStatus && (
+              {poseStatus && fullBodyImageUrl && clothingImageUrl && ( // Only show if both images are present
                 <div className={`status-card ${posesMatch === true ? 'success' : posesMatch === false ? 'error' : 'info'}`}>
                   <span className="status-icon">
                     {posesMatch === true ? '✅' : posesMatch === false ? '❌' : '⏳'}
