@@ -50,6 +50,8 @@ const ClothingGallery = forwardRef(({ onSelectClothing, showSelectedImage, setSh
 
   const handleBackToGallery = () => {
     setShowSelectedImage(false); // Show thumbnail gallery view
+    setSelectedImage(null); // Clear selected image
+    onSelectClothing(null); // Notify parent to clear selected clothing
   };
 
   const handleSearch = () => {
