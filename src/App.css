@@ -1,38 +1,1178 @@
-.App {
-  text-align: center;
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
 }
 
-.App-logo {
-  height: 40vmin;
-  pointer-events: none;
+body {
+  font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  min-height: 100vh; /* Revert to standard min-height */
+  overflow-y: auto; /* Enable scroll if content overflows */
+  position: relative; /* Make body the positioning context for absolute children */
 }
 
-@media (prefers-reduced-motion: no-preference) {
-  .App-logo {
-    animation: App-logo-spin infinite 20s linear;
-  }
-}
-
-.App-header {
-  background-color: #282c34;
-  min-height: 100vh;
+.app {
+  min-height: 100vh; /* Ensure app content is at least viewport height */
   display: flex;
   flex-direction: column;
   align-items: center;
   justify-content: center;
-  font-size: calc(10px + 2vmin);
+  padding: 20px;
+  margin-bottom: 100px; /* Add margin to push content and allow scrolling for logout button */
+}
+
+.container {
+  background: rgba(255, 255, 255, 0.95);
+  backdrop-filter: blur(20px);
+  border-radius: 24px;
+  box-shadow: 0 20px 40px rgba(0, 0, 0, 0.1);
+  padding: 40px;
+  max-width: 1200px;
+  width: 100%;
+  min-height: 600px;
+  display: flex;
+  flex-direction: column;
+}
+
+.header {
+  text-align: center;
+  margin-bottom: 40px;
+  position: relative;
+}
+
+.credits-display {
+  position: absolute;
+  top: 0;
+  right: 0;
+  background: linear-gradient(135deg, #10b981 0%, #059669 100%);
+  color: white;
+  padding: 8px 16px;
+  border-radius: 20px;
+  font-size: 0.9rem;
+  font-weight: 600;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  box-shadow: 0 4px 15px rgba(16, 185, 129, 0.2);
+}
+
+.credits-icon {
+  font-size: 1.1rem;
+}
+
+.credits-warning {
+  background: #ef4444;
+  padding: 2px 8px;
+  border-radius: 10px;
+  font-size: 0.8rem;
+  margin-left: 8px;
+}
+
+.refresh-credits {
+  background: none;
+  border: none;
+  color: white;
+  font-size: 1rem;
+  cursor: pointer;
+  padding: 2px;
+  border-radius: 4px;
+  transition: background-color 0.2s ease;
+}
+
+.refresh-credits:hover {
+  background: rgba(255, 255, 255, 0.2);
+}
+
+.relogin-button {
+  background: #ef4444;
+  border: none;
+  color: white;
+  font-size: 0.85rem;
+  font-weight: 600;
+  cursor: pointer;
+  padding: 4px 8px;
+  border-radius: 6px;
+  transition: background-color 0.2s ease;
+}
+
+.relogin-button:hover {
+  background: #dc2626;
+}
+
+.auth-error {
+  background: #ef4444;
+  padding: 2px 8px;
+  border-radius: 10px;
+  font-size: 0.8rem;
+  margin-left: 8px;
+  animation: pulse 2s infinite;
+}
+
+@keyframes pulse {
+  0%, 100% { opacity: 1; }
+  50% { opacity: 0.7; }
+}
+
+/* Logout section at bottom - outside white container */
+.logout-section {
+  padding: 20px;
+  text-align: center;
+  position: absolute; /* Position relative to the body */
+  bottom: 2px; /* Move up by 100px to align with the white container */
+  right: 20px; /* Align to the right, with some padding */
+  width: auto; /* Allow width to be determined by content */
+  z-index: 100; /* Ensure it's above other content */
+}
+
+.logout-button-bottom {
+  background: none; /* Remove background */
+  color: #ef4444;
+  border: none; /* Remove border */
+  padding: 8px; /* Minimal padding */
+  border-radius: 50%; /* Make it circular */
+  font-size: 5rem; /* Make the icon much bigger (2x increase) */
+  cursor: pointer;
+  transition: all 0.3s ease;
+  box-shadow: none; /* Remove shadow */
+  backdrop-filter: none; /* Remove blur effect */
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: auto;
+  height: auto;
+  margin: 0 auto;
+}
+
+.logout-button-bottom:hover {
+  transform: scale(1.1); /* Slightly grow on hover */
+  color: #dc2626; /* Darker red on hover */
+}
+
+.logout-button-bottom:active {
+  transform: scale(0.95); /* Slightly shrink when clicked */
+}
+
+.logout-btn {
+  background: none;
+  border: none;
+  color: white;
+  font-size: 1rem;
+  cursor: pointer;
+  padding: 2px;
+  border-radius: 4px;
+  transition: background-color 0.2s ease;
+}
+
+.logout-btn:hover {
+  background: rgba(255, 255, 255, 0.2);
+}
+
+.logo {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 12px;
+  margin-bottom: 8px;
+}
+
+.logo-icon {
+  font-size: 2.5rem;
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+h1 {
+  font-size: 2.5rem;
+  font-weight: 700;
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+.subtitle {
+  color: #64748b;
+  font-size: 1.1rem;
+  font-weight: 400;
+}
+
+.main-content {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+}
+
+/* Upload View Styles */
+.upload-section {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 30px;
+  margin-bottom: 30px;
+}
+
+.upload-container {
+  background: #ffffff;
+  border-radius: 16px;
+  padding: 24px;
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.08);
+  border: 1px solid #e2e8f0;
+  transition: all 0.3s ease;
+}
+
+.upload-container:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 8px 30px rgba(0, 0, 0, 0.12);
+}
+
+.upload-header {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  margin-bottom: 16px;
+}
+
+.upload-icon {
+  font-size: 1.5rem;
+}
+
+.upload-header h3 {
+  font-size: 1.25rem;
+  font-weight: 600;
+  color: #1e293b;
+}
+
+.upload-area {
+  position: relative;
+}
+
+.image-preview {
+  position: relative;
+  border-radius: 12px;
+  overflow: hidden;
+  background: #f8fafc;
+}
+
+.image-preview img {
+  width: 100%;
+  height: 300px;
+  object-fit: cover;
+  object-position: top; /* Added to show the top part of the image */
+  display: block;
+}
+
+.image-overlay {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: rgba(0, 0, 0, 0.5);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  opacity: 0;
+  transition: opacity 0.3s ease;
+}
+
+.image-preview:hover .image-overlay {
+  opacity: 1;
+}
+
+.change-image-btn {
+  background: #ffffff;
+  color: #1e293b;
+  border: none;
+  padding: 8px 16px;
+  border-radius: 8px;
+  font-weight: 500;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.change-image-btn:hover {
+  background: #f1f5f9;
+  transform: scale(1.05);
+}
+
+.upload-placeholder {
+  height: 350px; /* Increased height */
+  border: 2px dashed #cbd5e1;
+  border-radius: 12px;
+  display: flex;
+  flex-direction: column; /* Changed to column to stack camera icon, plus, text, and options */
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  background: #f8fafc;
+  position: relative; /* For absolute positioning of upload-options and camera-capture-container */
+}
+
+.upload-placeholder:hover {
+  border-color: #667eea;
+  background: #f0f4ff;
+}
+
+.upload-content {
+  text-align: center;
+}
+
+.upload-camera-icon {
+  font-size: 3rem;
+  color: #94a3b8;
+  display: block;
+  margin-bottom: 8px;
+}
+
+.upload-plus {
+  font-size: 3rem;
+  color: #94a3b8;
+  display: block;
+  margin-bottom: 8px;
+}
+
+.upload-options {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: rgba(255, 255, 255, 0.9);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 15px;
+  border-radius: 12px;
+  backdrop-filter: blur(5px);
+}
+
+.upload-option-btn {
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  color: white;
+  border: none;
+  padding: 12px 25px;
+  border-radius: 8px;
+  font-size: 1rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  min-width: 150px;
+  text-align: center;
+}
+
+.upload-option-btn:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 4px 15px rgba(102, 126, 234, 0.4);
+}
+
+.upload-placeholder p {
+  color: #64748b;
+  font-weight: 500;
+}
+
+/* Camera Capture Styles */
+.camera-capture-container {
+  position: fixed; /* Changed to fixed for full-screen overlay */
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: rgba(0, 0, 0, 0.7); /* Darker backdrop */
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 20px;
+  padding: 20px;
+  box-sizing: border-box;
+  z-index: 1000; /* High z-index to appear above all content */
+}
+
+.camera-capture-container h3 {
+  color: #ffffff; /* Change color for better visibility on dark backdrop */
+  font-size: 1.5rem;
+  margin-bottom: 0;
+}
+
+.camera-wrapper {
+  width: 90%;
+  max-width: 600px;
+  border-radius: 16px;
+  overflow: hidden;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
+}
+
+.camera-wrapper {
+  width: 90%;
+  max-width: 600px;
+  border-radius: 16px;
+  overflow: hidden;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
+}
+
+.camera-wrapper {
+  width: 90%;
+  max-width: 600px;
+  border-radius: 16px;
+  overflow: hidden;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
+}
+
+.camera-wrapper {
+  width: 90%;
+  max-width: 600px;
+  border-radius: 16px;
+  overflow: hidden;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
+}
+
+
+.camera-controls {
+  display: flex;
+  gap: 15px;
+}
+
+.camera-btn,
+.camera-cancel-btn {
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  color: white;
+  border: none;
+  padding: 10px 20px;
+  border-radius: 8px;
+  font-size: 0.9rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+
+.camera-cancel-btn {
+  background: #cbd5e1;
+  color: #334155;
+}
+
+.camera-btn:hover {
+  transform: translateY(-1px);
+  box-shadow: 0 4px 10px rgba(102, 126, 234, 0.3);
+}
+
+.camera-cancel-btn:hover {
+  background: #94a3b8;
+  transform: translateY(-1px);
+}
+
+.file-input {
+  display: none;
+}
+
+/* Status Card */
+.status-card {
+  display: flex;
+  align-items: center;
+  justify-content: center; /* Center align content horizontally */
+  gap: 12px;
+  padding: 16px 20px;
+  border-radius: 12px;
+  margin-bottom: 30px;
+  font-weight: 500;
+}
+
+.status-card.info {
+  background: #eff6ff;
+  color: #1e40af;
+  border: 1px solid #dbeafe;
+}
+
+.status-card.success {
+  background: #f0fdf4;
+  color: #166534;
+  border: 1px solid #dcfce7;
+}
+
+.status-card.error {
+  background: #fef2f2;
+  color: #dc2626;
+  border: 1px solid #fecaca;
+}
+
+.status-icon {
+  font-size: 1.25rem;
+}
+
+/* Action Section */
+.action-section {
+  display: flex;
+  justify-content: center;
+  margin-bottom: 30px;
+}
+
+/* Dynamic Button Styles */
+.try-on-btn {
+  border: none;
+  padding: 16px 32px;
+  border-radius: 12px;
+  font-size: 1.1rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  min-width: 200px;
+  justify-content: center;
+}
+
+/* Success state - poses match */
+.try-on-btn.success {
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  color: white;
+  box-shadow: 0 4px 20px rgba(102, 126, 234, 0.3);
+}
+
+.try-on-btn.success:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 8px 30px rgba(102, 126, 234, 0.4);
+}
+
+/* Error state - poses don't match */
+.try-on-btn.error {
+  background: linear-gradient(135deg, #ef4444 0%, #dc2626 100%);
+  color: white;
+  cursor: not-allowed;
+  box-shadow: 0 4px 20px rgba(239, 68, 68, 0.3);
+}
+
+.try-on-btn.error:hover {
+  transform: none;
+  box-shadow: 0 4px 20px rgba(239, 68, 68, 0.3);
+}
+
+/* Loading state - analyzing poses */
+.try-on-btn.loading {
+  background: linear-gradient(135deg, #94a3b8 0%, #64748b 100%);
+  color: white;
+  cursor: wait;
+  box-shadow: 0 4px 20px rgba(148, 163, 184, 0.3);
+}
+
+.try-on-btn:disabled {
+  cursor: not-allowed;
+}
+
+/* Progress Bar Styles */
+.progress-container {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+  padding: 60px 40px;
+}
+
+.progress-header {
+  margin-bottom: 40px;
+}
+
+.progress-header h3 {
+  font-size: 1.5rem;
+  color: #1e293b;
+  margin-bottom: 12px;
+  font-weight: 600;
+}
+
+.progress-text {
+  color: #64748b;
+  font-size: 1rem;
+  min-height: 24px;
+}
+
+.progress-bar-wrapper {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  width: 100%;
+  max-width: 400px;
+}
+
+.progress-bar {
+  flex: 1;
+  height: 8px;
+  background: #e2e8f0;
+  border-radius: 4px;
+  overflow: hidden;
+}
+
+.progress-fill {
+  height: 100%;
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  border-radius: 4px;
+  transition: width 0.3s ease;
+  position: relative;
+}
+
+.progress-fill::after {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: linear-gradient(90deg, transparent, rgba(255,255,255,0.3), transparent);
+  animation: shimmer 2s infinite;
+}
+
+@keyframes shimmer {
+  0% { transform: translateX(-100%); }
+  100% { transform: translateX(100%); }
+}
+
+.progress-percentage {
+  font-weight: 600;
+  color: #667eea;
+  min-width: 40px;
+  text-align: right;
+}
+
+/* Result View Styles */
+.result-view {
+  flex: 1;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.result-container {
+  background: #ffffff;
+  border-radius: 16px;
+  padding: 32px;
+  box-shadow: 0 8px 30px rgba(0, 0, 0, 0.1);
+  text-align: center;
+  max-width: 600px;
+  width: 100%;
+}
+
+.result-container h3 {
+  font-size: 1.5rem;
+  color: #1e293b;
+  margin-bottom: 24px;
+  font-weight: 600;
+}
+
+.result-image-container {
+  margin-bottom: 24px;
+}
+
+.result-image {
+  max-width: 100%;
+  height: auto;
+  max-height: 500px;
+  border-radius: 12px;
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
+}
+
+.result-actions {
+  display: flex;
+  gap: 12px;
+  justify-content: center;
+  flex-wrap: wrap;
+}
+
+.download-btn,
+.share-btn,
+.reload-btn {
+  background: #ffffff;
+  color: #667eea;
+  border: 2px solid #667eea;
+  padding: 12px 20px;
+  border-radius: 10px;
+  font-weight: 500;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.reload-btn {
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  color: white;
+  border-color: transparent;
+}
+
+.download-btn:hover,
+.share-btn:hover {
+  background: #667eea;
+  color: white;
+  transform: translateY(-2px);
+}
+
+.reload-btn:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 4px 20px rgba(102, 126, 234, 0.3);
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+  .container {
+    padding: 20px;
+    margin: 10px;
+  }
+  
+  h1 {
+    font-size: 2rem;
+  }
+  
+  .upload-section {
+    grid-template-columns: 1fr;
+    gap: 20px;
+  }
+  
+  .result-actions {
+    flex-direction: column;
+    align-items: center;
+  }
+  
+  .download-btn,
+  .share-btn,
+  .reload-btn {
+    width: 200px;
+    justify-content: center;
+  }
+  
+  .progress-container {
+    padding: 40px 20px;
+  }
+  
+  .try-on-btn {
+    min-width: 250px;
+  }
+}
+
+@media (max-width: 480px) {
+  .container {
+    padding: 16px;
+  }
+  
+  .logo {
+    flex-direction: column;
+    gap: 8px;
+  }
+  
+  h1 {
+    font-size: 1.75rem;
+  }
+  
+  .subtitle {
+    font-size: 1rem;
+  }
+  
+  .result-container {
+    padding: 24px;
+  }
+}
+
+/* AuthPage Specific Styles */
+.auth-page {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  min-height: 100vh;
+  padding: 20px;
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+}
+
+.auth-container {
+  background: rgba(255, 255, 255, 0.95);
+  backdrop-filter: blur(20px);
+  border-radius: 24px;
+  box-shadow: 0 20px 40px rgba(0, 0, 0, 0.1);
+  padding: 40px;
+  max-width: 450px;
+  width: 100%;
+  text-align: center;
+}
+
+.auth-container h2 {
+  font-size: 2rem;
+  color: #1e293b;
+  margin-bottom: 30px;
+}
+
+.form-group {
+  margin-bottom: 20px;
+  text-align: left;
+}
+
+.form-group label {
+  display: block;
+  font-weight: 600;
+  margin-bottom: 8px;
+  color: #334155;
+}
+
+.form-group input[type="text"],
+.form-group input[type="password"],
+.form-group select {
+  width: 100%;
+  padding: 12px;
+  border: 1px solid #cbd5e1;
+  border-radius: 8px;
+  font-size: 1rem;
+  color: #334155;
+  background-color: #f8fafc;
+  transition: border-color 0.2s ease;
+}
+
+.form-group input[type="text"]:focus,
+.form-group input[type="password"]:focus,
+.form-group select:focus,
+.form-group input[type="number"]:focus { /* Added number input */
+  outline: none;
+  border-color: #667eea;
+  box-shadow: 0 0 0 3px rgba(102, 126, 234, 0.2);
+}
+
+.auth-button {
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  color: white;
+  border: none;
+  padding: 14px 24px;
+  border-radius: 12px;
+  font-size: 1.1rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  width: 100%;
+  box-shadow: 0 4px 20px rgba(102, 126, 234, 0.3);
+}
+
+.auth-button:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 8px 30px rgba(102, 126, 234, 0.4);
+}
+
+.toggle-auth {
+  margin-top: 25px;
+  color: #64748b;
+}
+
+.toggle-auth span {
+  color: #667eea;
+  font-weight: 600;
+  cursor: pointer;
+  text-decoration: underline;
+}
+
+.toggle-auth span:hover {
+  color: #764ba2;
+}
+
+/* AdminDashboard Specific Styles */
+.admin-dashboard nav ul {
+  list-style: none;
+  padding: 0;
+  margin-top: 20px;
+}
+
+.admin-dashboard nav li {
+  margin-bottom: 10px;
+}
+
+.admin-dashboard nav a {
+  display: block;
+  padding: 10px 15px;
+  background-color: #f0f4ff;
+  border-radius: 8px;
+  color: #667eea;
+  text-decoration: none;
+  font-weight: 500;
+  transition: background-color 0.2s ease, transform 0.2s ease;
+}
+
+.admin-dashboard nav a:hover {
+  background-color: #e0e7ff;
+  transform: translateX(5px);
+}
+
+/* Styles for forms within admin content */
+.admin-content form {
+  background: #ffffff;
+  border-radius: 12px;
+  padding: 25px;
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.05);
+  margin-bottom: 30px;
+}
+
+.admin-content form .form-group {
+  margin-bottom: 15px;
+}
+
+.admin-content form .form-group label {
+  font-weight: 600;
+  margin-bottom: 8px;
+  display: block;
+  color: #334155;
+}
+
+.admin-content form .form-group input[type="text"],
+.admin-content form .form-group input[type="password"],
+.admin-content form .form-group input[type="number"],
+.admin-content form .form-group select {
+  width: 100%;
+  padding: 10px 12px;
+  border: 1px solid #cbd5e1;
+  border-radius: 8px;
+  font-size: 1rem;
+  color: #334155;
+  background-color: #f8fafc;
+  transition: border-color 0.2s ease;
+}
+
+.admin-content form .auth-button {
+  width: auto;
+  padding: 10px 20px;
+  font-size: 1rem;
+  border-radius: 8px;
+}
+
+/* New styles for the integrated Clothing Gallery */
+.clothing-gallery-main {
+  display: flex;
+  flex-direction: column;
+  gap: 15px; /* Adjusted gap */
+  position: relative; /* Needed for absolute positioning of views */
+  overflow: hidden; /* Hide overflowing content during transitions */
+  height: 480px; /* Reverted height */
+  width: 550px; /* Adjusted width */
+  background: #ffffff; /* Add background to be visible */
+  border-radius: 16px;
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.08);
+  border: 1px solid #e2e8f0;
+  padding: 20px; /* Add padding for better layout */
+}
+
+/* Base styles for gallery views */
+.gallery-view,
+.selected-image-view {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  transition: transform 0.5s ease-in-out, opacity 0.5s ease-in-out;
+  display: flex;
+  flex-direction: column;
+}
+
+/* Slide-in animation */
+.gallery-view.slide-in,
+.selected-image-view.slide-in {
+  transform: translateX(0%);
+  opacity: 1;
+  pointer-events: auto; /* Enable interactions */
+}
+
+/* Slide-out animation */
+.gallery-view.slide-out {
+  transform: translateX(-100%);
+  opacity: 0;
+  pointer-events: none; /* Disable interactions when hidden */
+}
+
+.selected-image-view.slide-out {
+  transform: translateX(100%);
+  opacity: 0;
+  pointer-events: none; /* Disable interactions when hidden */
+}
+
+.selected-image-fullscreen {
+  background: #ffffff;
+  border-radius: 16px;
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.08);
+  border: 1px solid #e2e8f0;
+  position: relative;
+  overflow: hidden;
+  flex-grow: 1; /* Allow it to take available space in flex column */
+  display: flex; /* Use flex to position button */
+  flex-direction: column; /* Stack button and image */
+  height: 100%; /* Fill the container's height */
+  box-sizing: border-box; /* Include padding/border in height */
+}
+
+.selected-image-fullscreen img {
+  width: 100%;
+  height: auto; /* Let height adjust naturally */
+  max-height: 100%; /* Limit height to container */
+  object-fit: contain;
+  display: block;
+  flex-grow: 1; /* Image takes remaining space */
+}
+
+.selected-image-info-overlay {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  background: rgba(0, 0, 0, 0.6);
+  color: white;
+  padding: 10px 15px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  font-size: 0.9rem;
+}
+
+.selected-image-info-overlay h4 {
+  margin: 0;
+  font-size: 1.1rem;
   color: white;
 }
 
-.App-link {
-  color: #61dafb;
+.selected-image-info-overlay p {
+  margin: 0;
+  color: #e2e8f0;
 }
 
-@keyframes App-logo-spin {
-  from {
-    transform: rotate(0deg);
-  }
-  to {
-    transform: rotate(360deg);
-  }
+.gallery-thumbnails-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr); /* 3 columns for 6 images (2 rows) */
+  grid-template-rows: repeat(2, 1fr); /* 2 rows for 6 images */
+  gap: 15px; /* Increased gap */
+  height: calc(100% - 70px); /* Reverted height */
+  overflow-y: auto;
+  padding-right: 10px; /* Space for scrollbar */
+  padding: 10px; /* Add padding to the grid itself */
+  box-sizing: border-box; /* Include padding in height calculation */
+}
+
+.gallery-thumbnail-item {
+  background: #f8fafc;
+  border: 2px solid #e2e8f0;
+  border-radius: 8px;
+  overflow: hidden;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  padding: 0 2px; /* Decreased top/bottom padding to 0, kept left/right at 2px */
+}
+
+.gallery-thumbnail-item:hover {
+  border-color: #667eea;
+  box-shadow: 0 4px 10px rgba(102, 126, 234, 0.2);
+  transform: translateY(-2px);
+}
+
+.gallery-thumbnail-item.selected {
+  border-color: #667eea;
+  box-shadow: 0 0 0 3px rgba(102, 126, 234, 0.4);
+}
+
+.gallery-thumbnail-item img {
+  width: 100%;
+  height: 180px; /* Reverted to 90px height */
+  object-fit: cover; /* Ensure image covers the area */
+  object-position: center; /* Center the image within its frame */
+  border-radius: 4px;
+  margin-bottom: 5px;
+}
+
+.thumbnail-info p {
+  font-size: 0.8rem;
+  color: #334155;
+  margin: 0;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.clothing-search-wrapper { /* New wrapper for input and icon */
+  position: relative;
+  display: flex;
+  align-items: center;
+  margin-bottom: 15px; /* Add margin to push it down */
+  width: 100%; /* Ensure it takes full width of its parent */
+}
+
+.clothing-search-input {
+  flex-grow: 1; /* Allow input to take available space */
+  padding: 10px 40px 10px 10px; /* Add padding on right for icon */
+  border: 1px solid #e2e8f0;
+  border-radius: 8px;
+  font-size: 1rem;
+  color: #334155;
+  background-color: #f8fafc;
+  transition: border-color 0.2s ease;
+}
+
+.clothing-search-input:focus {
+  outline: none;
+  border-color: #667eea;
+  box-shadow: 0 0 0 3px rgba(102, 126, 234, 0.2);
+}
+
+.search-icon {
+  position: absolute;
+  right: 10px;
+  color: #64748b;
+  cursor: pointer;
+  font-size: 1.2rem;
+}
+
+.search-icon:hover {
+  color: #334155;
+}
+
+.pagination {
+  display: flex;
+  justify-content: center;
+  margin-top: auto; /* Push pagination to the bottom */
+  padding-top: 15px;
+  gap: 5px;
+  border-top: 1px solid #e2e8f0;
+}
+
+.pagination button {
+  background: #f0f4ff;
+  color: #667eea;
+  border: 1px solid #667eea;
+  padding: 8px 12px;
+  border-radius: 8px;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.pagination button:hover:not(.active) {
+  background: #e0e7ff;
+}
+
+.pagination button.active {
+  background: #667eea;
+  color: white;
+}
+
+.back-to-gallery-btn {
+  background: #667eea;
+  color: white;
+  border: none;
+  padding: 8px 15px;
+  border-radius: 8px;
+  font-size: 0.9rem;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  align-self: flex-start; /* Align to the start of the flex container */
+  margin: 15px; /* Spacing from edges */
+  z-index: 20; /* Ensure it's above the image */
+}
+
+.back-to-gallery-btn:hover {
+  background: #764ba2;
+  transform: translateY(-1px);
 }
